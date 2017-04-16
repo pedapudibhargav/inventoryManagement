@@ -3,41 +3,32 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 export default class ProductList extends React.Component {
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+  render(props) {
     const style = {
       menuWrapper: {
       }
     };
+    var productsIn = this.props.products;
     return (
       <Table>
         <TableHeader>
             <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
               <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Status</TableHeaderColumn>
+              <TableHeaderColumn>In stock </TableHeaderColumn>
             </TableRow>
         </TableHeader>
         <TableBody>
-            <TableRow>
-              <TableRowColumn>1</TableRowColumn>
-              <TableRowColumn>John Smith</TableRowColumn>
-              <TableRowColumn>Employed</TableRowColumn>
-            </TableRow>
-            <TableRow>
+          {productsIn.map((product) =>
+            <TableRow key={product.id}>
+              <TableRowColumn>{product.name}</TableRowColumn>
               <TableRowColumn>2</TableRowColumn>
-              <TableRowColumn>Randal White</TableRowColumn>
-              <TableRowColumn>Unemployed</TableRowColumn>
             </TableRow>
-            <TableRow>
-              <TableRowColumn>3</TableRowColumn>
-              <TableRowColumn>Stephanie Sanders</TableRowColumn>
-              <TableRowColumn>Employed</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn>4</TableRowColumn>
-              <TableRowColumn>Steve Brown</TableRowColumn>
-              <TableRowColumn>Employed</TableRowColumn>
-            </TableRow>
+          )}
+
         </TableBody>
       </Table>
     );
