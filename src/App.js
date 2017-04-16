@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+{/* import ReactDOM from 'react-dom'; */}
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link
+} from 'react-router-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import LeftSideNav from "./components/sideNav/LeftSideNav"
+import Paper from 'material-ui/Paper';
+import LeftSideNav from "./components/sideNav/LeftSideNav";
+import Dashboard from "./views/Dashboard";
+import Products from "./views/Products";
+import POS from "./views/POS";
 
 import './App.css';
 
@@ -35,18 +45,28 @@ class App extends Component {
     return (
       <div className="App" style={appStyle}>
         <MuiThemeProvider>
+          <Paper zDepth={2} style={style.menuPaper} >
               <AppBar
                   title="Title"
                   iconClassNameRight="muidocs-icon-navigation-expand-more"
                  style={{textAlign:'left'}}
                  onTouchTap={this.handleLeftNavToggle}/>
+          </Paper>
         </MuiThemeProvider>
-        <main style={style.mainTag}>
-            <LeftSideNav ></LeftSideNav>
-            <div id="main-body" style={style.mainBody}>
 
-            </div>
-        </main>
+        <Router>
+          <main style={style.mainTag}>
+              <LeftSideNav ></LeftSideNav>
+              <div id="main-body" style={style.mainBody}>
+                  <div>
+                       <Route exact path="/" component={Dashboard}/>
+                       <Route path="/products" component={Products}/>
+                       <Route path="/pos" component={POS}/>
+                  </div>
+
+              </div>
+          </main>
+        </Router>
       </div>
     );
   }

@@ -11,8 +11,11 @@ import MapsLocalShipping from 'material-ui/svg-icons/maps/local-shipping';
 import NotificationEventNote from 'material-ui/svg-icons/notification/event-note';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import NavigationSubdirectoryArrowRight from 'material-ui/svg-icons/navigation/subdirectory-arrow-right';
-import FontIcon from 'material-ui/FontIcon';
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 export default class LeftSideNav extends React.Component {
 
   render() {
@@ -36,19 +39,25 @@ export default class LeftSideNav extends React.Component {
         <div style={style.menuWrapper}>
           <MuiThemeProvider>
             <Paper zDepth={2} style={style.menuPaper} >
-                <Menu style={style.menu}>
-                  <MenuItem primaryText="Dashboard" leftIcon={<ActionDashboard />} />
-                  <MenuItem primaryText="Products" leftIcon={<ActionStore />} />
-                  <Divider />
-                  <MenuItem primaryText="POS" leftIcon={<ActionAddShoppingCart />} />
-                  <MenuItem primaryText="Sales" leftIcon={<NavigationSubdirectoryArrowRight />}/>
-                  <MenuItem primaryText="Bills" leftIcon={<NavigationSubdirectoryArrowRight />}/>
-                  <Divider />
-                  <MenuItem primaryText="Purchase Orders" leftIcon={<MapsLocalShipping />} />
-                  <MenuItem primaryText="Invoice" leftIcon={<NotificationEventNote />} />
-                  <Divider />
-                  <MenuItem primaryText="People" leftIcon={<SocialPeople />} />
-                </Menu>
+                  <Menu style={style.menu}>
+                    <Link to="/">
+                      <MenuItem primaryText="Dashboard" leftIcon={<ActionDashboard />} />
+                    </Link>
+                    <Link to="/products">
+                      <MenuItem primaryText="Products" leftIcon={<ActionStore />} />
+                    </Link>
+                    <Divider />
+                    <Link to="/pos">
+                      <MenuItem primaryText="POS" leftIcon={<ActionAddShoppingCart />} />
+                    </Link>
+                    <MenuItem primaryText="Sales" leftIcon={<NavigationSubdirectoryArrowRight />}/>
+                    <MenuItem primaryText="Bills" leftIcon={<NavigationSubdirectoryArrowRight />}/>
+                    <Divider />
+                    <MenuItem primaryText="Purchase Orders" leftIcon={<MapsLocalShipping />} />
+                    <MenuItem primaryText="Invoice" leftIcon={<NotificationEventNote />} />
+                    <Divider />
+                    <MenuItem primaryText="People" leftIcon={<SocialPeople />} />
+                  </Menu>
             </Paper>
           </MuiThemeProvider>
       </div>
