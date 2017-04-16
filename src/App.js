@@ -22,6 +22,16 @@ class App extends Component {
     const appStyle={
       minHeight:"100vh"
     }
+    const style = {
+      mainTag:{
+        height:"calc(100vh - 62px)"
+      },
+      mainBody: {
+        width:'calc(100% - 280px)',
+        float:'left',
+        minHeight:'100%'
+      }
+    };
     return (
       <div className="App" style={appStyle}>
         <MuiThemeProvider>
@@ -31,8 +41,12 @@ class App extends Component {
                  style={{textAlign:'left'}}
                  onTouchTap={this.handleLeftNavToggle}/>
         </MuiThemeProvider>
+        <main style={style.mainTag}>
+            <LeftSideNav ></LeftSideNav>
+            <div id="main-body" style={style.mainBody}>
 
-        <LeftSideNav navVisibility={this.state.navVisibility} handleToggle={this.handleLeftNavToggle}></LeftSideNav>
+            </div>
+        </main>
       </div>
     );
   }

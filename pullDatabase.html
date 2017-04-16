@@ -1,0 +1,124 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="Bhargav">
+</head>
+
+<body>
+  <div id="finalData" style="position:fixed; top:0px;  left:0px;right:0px;bottom:0px;background-color:rgba(0,0,0,0.2)"></div>
+</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $.get( "https://www.1mg.com/search/paginate?name=croc&pageNumber=2&pageSize=10&_=1492047382652",
+       function( data ) {
+      alert(JSON.stringify(data.results.result));
+      $( "#nv_js-modal-content" ).html( JSON.stringify(data.results.result) );
+      console.log("Pulling data");
+    });
+
+    // $.get( "https://www.1mg.com/search/paginate?name="+alphabet1[i]+alphabet2[j]+alphabet3[k]+"&pageNumber=2&pageSize=5 0&_=1492047382652",
+    //    function( data ) {
+    //   // alert(JSON.stringify(data.results.result));
+    //   finalArray = finalArray.concat(data.results.result);
+    //   // $( "#nv_js-modal-content" ).html( JSON.stringify(data.results.result) );
+    //   console.log("Size:"+finalArray.length);
+    // });
+
+    // $.ajax( "https://www.1mg.com/search/paginate?name="+alphabet1[i]+alphabet2[j]+alphabet3[k]+"&pageNumber=2&pageSize=5 0&_=1492047382652" )
+    //   .done(function(data) {
+    //     finalArray = finalArray.concat(data.results.result);
+    //     console.log("Size:"+finalArray.length);
+    //   })
+    //   .fail(function() {
+    //     console.log("Skip");
+    //   });
+    $.ajax({
+       type: 'GET',
+       url: "https://www.1mg.com/search/paginate?name=croc&pageNumber=2&pageSize=10&_=1492047382652",
+       success: function(data, textStatus ){
+          finalArray = finalArray.concat(data.results.result);
+          $( "#nv_js-modal" ).html( JSON.stringify(finalArray) );
+          console.log("Size:"+finalArray.length);
+       },
+       error: function(xhr, textStatus, errorThrown){
+          console.log('nextSequence');
+       }
+     });
+
+
+
+
+
+
+     function wait(ms){
+        var start = new Date().getTime();
+        var end = start;
+        while(end < start + ms) {
+          end = new Date().getTime();
+       }
+     }
+
+     var alphabet1 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+     var alphabet2 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+     var alphabet3 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+     var threeLetters = [];
+     var finalArray = [];
+
+    for(var i=0; i<26; i++){
+    for(var j=0; j<26; j++){
+    for(var k=0; k<26; k++){
+
+      threeLetters.push(alphabet1[i]+alphabet2[j]+alphabet3[k]);
+      // console.log(alphabet1[i]+alphabet2[j]+alphabet3[k]);
+
+    }
+    }
+    }
+    setTimeout(function(){
+      console.log("enter set timeout");
+      localStorage.setItem('threeLettersArray', JSON.stringify(threeLetters));
+
+    }, 2000);
+console.log(localStorage["threeLettersArray"]);
+
+
+
+
+// localStorage.setItem('FinalArray', '');
+var letterArray = JSON.parse(localStorage["threeLettersArray"]);
+var finalArray = [];
+$("body").html("test");
+var getJSON = function(alphSeq, pageNum){
+  $.get( "https://www.1mg.com/search/paginate?name="+alphSeq+"&pageNumber="+pageNum+"&pageSize=50&_=1492047382652",
+     function( data ) {
+       if($("body").html() != "test")
+          finalArray = JSON.parse($("body").html());
+
+       console.log("CurrentSequence:"+alphSeq);
+       finalArray = finalArray.concat(data.results.result);
+       $("body").html(JSON.stringify(finalArray));
+       console.log("FinalArraySize:"+finalArray.length);
+      //  localStorage.setItem('FinalArray', JSON.stringify(finalArray));
+      //  if(alphSeq.toUpperCase() == "ZZZ")
+      //  {
+      //    $("#nv_js-modal").html(localStorage["FinalArray"]);
+      //  }
+       getJSON(alphSeq, pageNum+1);
+  });
+}
+
+for(var ct=0 ; ct < letterArray.length ;ct++)
+{
+    getJSON(letterArray[ct],1);
+}
+
+
+
+
+  </script>
+</html>

@@ -1,62 +1,56 @@
 import React from "react";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import Divider from 'material-ui/Divider';
+import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
+import ActionStore from 'material-ui/svg-icons/action/store';
+import ActionAddShoppingCart from 'material-ui/svg-icons/action/add-shopping-cart';
+import MapsLocalShipping from 'material-ui/svg-icons/maps/local-shipping';
+import NotificationEventNote from 'material-ui/svg-icons/notification/event-note';
+import SocialPeople from 'material-ui/svg-icons/social/people';
+import NavigationSubdirectoryArrowRight from 'material-ui/svg-icons/navigation/subdirectory-arrow-right';
+import FontIcon from 'material-ui/FontIcon';
 
 export default class LeftSideNav extends React.Component {
-  constructor(props) {
-   super(props);
-   this.state = {isToggleOn: this.props.navToggle};
- }
+
   render() {
-    const sideNavBg = {
-      position:'fixed',
-      top:0,
-      left:0,
-      right:0,
-      bottom:0,
-      zIndex:1200,
-      backgroundColor:"rgba(0,0,0,0.3)"
+    const style = {
+      menuWrapper: {
+        width:'280px',
+        float:'left',
+        height:"100%"
+      },
+      menu:{
+        width:"width:280px",
+        textAlign:"left",
+        height:"100%"
+      },
+      menuPaper:{
+        width:"width:280px",
+        height:"100%"
+      }
     };
-    const NavBg = {
-      position:'fixed',
-      top:0,
-      left:0,
-      bottom:0,
-      width:"200px",
-      zIndex:1200,
-      backgroundColor:"#fff"
-    };
-    const navCloseIconStyle = {
-      position:"fixed",
-      top:"0px",
-      left:"200px",
-      width:"40px",
-      zIndex: 2
-    };
-    if(!this.props.navVisibility)
-    {
-      console.log("Visiblity:"+this.props.navVisibility);
-      return null;
-    }
     return (
-      <div >
-        <MuiThemeProvider>
-          <Paper style={sideNavBg}>
-            <Menu style={NavBg} >
-              <FloatingActionButton mini={true} secondary={true}  style={navCloseIconStyle} onTouchTap={this.props.handleToggle} >
-                <NavigationArrowBack />
-              </FloatingActionButton>
-              <MenuItem primaryText="Maps" />
-              <MenuItem primaryText="Books" />
-              <MenuItem primaryText="Flights" />
-              <MenuItem primaryText="Apps" />
-            </Menu>
-          </Paper>
-        </MuiThemeProvider>
+        <div style={style.menuWrapper}>
+          <MuiThemeProvider>
+            <Paper zDepth={2} style={style.menuPaper} >
+                <Menu style={style.menu}>
+                  <MenuItem primaryText="Dashboard" leftIcon={<ActionDashboard />} />
+                  <MenuItem primaryText="Products" leftIcon={<ActionStore />} />
+                  <Divider />
+                  <MenuItem primaryText="POS" leftIcon={<ActionAddShoppingCart />} />
+                  <MenuItem primaryText="Sales" leftIcon={<NavigationSubdirectoryArrowRight />}/>
+                  <MenuItem primaryText="Bills" leftIcon={<NavigationSubdirectoryArrowRight />}/>
+                  <Divider />
+                  <MenuItem primaryText="Purchase Orders" leftIcon={<MapsLocalShipping />} />
+                  <MenuItem primaryText="Invoice" leftIcon={<NotificationEventNote />} />
+                  <Divider />
+                  <MenuItem primaryText="People" leftIcon={<SocialPeople />} />
+                </Menu>
+            </Paper>
+          </MuiThemeProvider>
       </div>
     );
   }
