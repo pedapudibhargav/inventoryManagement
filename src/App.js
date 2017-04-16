@@ -39,6 +39,7 @@ class App extends Component {
       mainBody: {
         width:'calc(100% - 280px)',
         float:'left',
+        height:'100%',
         minHeight:'100%'
       }
     };
@@ -58,12 +59,9 @@ class App extends Component {
           <main style={style.mainTag}>
               <LeftSideNav ></LeftSideNav>
               <div id="main-body" style={style.mainBody}>
-                  <div>
                        <Route exact path="/" component={Dashboard}/>
                        <Route path="/products" component={Products}/>
                        <Route path="/pos" component={POS}/>
-                  </div>
-
               </div>
           </main>
         </Router>
