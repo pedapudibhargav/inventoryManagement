@@ -14,16 +14,19 @@ export default class ProductList extends React.Component {
     };
     var productsIn = this.props.products;
     return (
-      <Table>
+      <Table onRowSelection={(index) => {
+        this.props.onProductClick(productsIn[index]);
+        console.log(JSON.stringify(productsIn[index]));
+      }}>
         <TableHeader>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>In stock </TableHeaderColumn>
             </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody >
           {productsIn.map((product) =>
-            <TableRow key={product.id}>
+            <TableRow key={product.id} >
               <TableRowColumn>{product.name}</TableRowColumn>
               <TableRowColumn>2</TableRowColumn>
             </TableRow>

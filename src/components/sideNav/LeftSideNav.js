@@ -43,6 +43,9 @@ export default class LeftSideNav extends React.Component {
                     <Link to="/">
                       <MenuItem primaryText="Dashboard" leftIcon={<ActionDashboard />} />
                     </Link>
+                    <Link to="/">
+                      <MenuItem primaryText="Stores" leftIcon={<ActionStore />} />
+                    </Link>
                     <Link to="/products">
                       <MenuItem primaryText="Products" leftIcon={<ActionStore />} />
                     </Link>
@@ -56,7 +59,9 @@ export default class LeftSideNav extends React.Component {
                     <MenuItem primaryText="Purchase Orders" leftIcon={<MapsLocalShipping />} />
                     <MenuItem primaryText="Invoice" leftIcon={<NotificationEventNote />} />
                     <Divider />
-                    <MenuItem primaryText="People" leftIcon={<SocialPeople />} />
+                    <MenuItem primaryText="Customers" leftIcon={<SocialPeople />} />
+                    <MenuItem primaryText="Delaers" leftIcon={<SocialPeople />} />
+                    <MenuItem primaryText="Doctors" leftIcon={<SocialPeople />} />
                   </Menu>
             </Paper>
           </MuiThemeProvider>
