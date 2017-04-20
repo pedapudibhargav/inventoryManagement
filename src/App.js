@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/customInventoryTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import LeftSideNav from "./components/sideNav/LeftSideNav";
@@ -45,7 +47,7 @@ class App extends Component {
     };
     return (
       <div className="App" style={appStyle}>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <Paper zDepth={2} style={style.menuPaper} >
               <AppBar
                   title="Title"
