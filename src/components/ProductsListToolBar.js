@@ -1,11 +1,11 @@
 import React from 'react';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 export default class ProductsListToolBar extends React.Component {
@@ -13,41 +13,47 @@ export default class ProductsListToolBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 3,
+      value: "showAll",
     };
   }
 
-  handleChange = (event, index, value) => this.setState({value});
+handleChange = (event, index, value) => this.setState({value});
+
 
   render() {
+    const style = {
+      selectBoxStyle:{
+        textAlign:'left',
+        height:'60px',
+        marginTop:"-10px"
+      },
+      toolBarSeperator:{
+        marginRight:"20px"
+      },
+      selectBoxLableStyle:{
+        marginTop:"8px"
+      }
+    };
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="All Broadcasts" />
-            <MenuItem value={2} primaryText="All Voice" />
-            <MenuItem value={3} primaryText="All Text" />
-            <MenuItem value={4} primaryText="Complete Voice" />
-            <MenuItem value={5} primaryText="Complete Text" />
-            <MenuItem value={6} primaryText="Active Voice" />
-            <MenuItem value={7} primaryText="Active Text" />
-          </DropDownMenu>
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <ToolbarTitle text="Options" />
-          <FontIcon className="muidocs-icon-custom-sort" />
-          <ToolbarSeparator />
-          <RaisedButton label="Create Broadcast" primary={true} />
-          <IconMenu
-            iconButtonElement={
-              <IconButton touch={true}>
-                <NavigationExpandMoreIcon />
-              </IconButton>
-            }
-          >
-            <MenuItem primaryText="Download" />
-            <MenuItem primaryText="More Info" />
-          </IconMenu>
+          <RaisedButton
+            label="Add Product"
+            primary={true}
+            icon={<ContentAdd />}
+          />
+          <ToolbarSeparator style={style.toolBarSeperator}/>
+          <ActionSearch/>
+          <TextField hintText="Search Inventory">
+          </TextField>
+          <ToolbarSeparator style={style.toolBarSeperator}/>
+          <SelectField floatingLabelText="Filter" style={style.selectBoxStyle} menuStyle={style.selectBoxLableStyle} value={this.state.value} onChange={this.handleChange} >
+              <MenuItem value={"showAll"} primaryText="Show All" />
+              <MenuItem value={"expired"} primaryText="Expired" />
+              <MenuItem value={"outOfStock"} primaryText="Out of Stock" />
+              <MenuItem value={"aboutToExpire"} primaryText="About To Expire" />
+              <MenuItem value={"closeToOutOfStock"} primaryText="Close to Out of Stock" />
+          </SelectField>
         </ToolbarGroup>
       </Toolbar>
     );
