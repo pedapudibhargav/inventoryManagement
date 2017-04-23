@@ -54,18 +54,20 @@ class App extends Component {
         minHeight:'100%'
       },
       searchBoxFloatingText:{
-        color:"rgba(255,255,255,0.7)"
+        color:"rgba(255,255,255,0.7)",
+        marginTop:"-10px"
       },
       searchBoxStyle:{
-        color:"rgba(255,255,255,1)"
+        color:"rgba(255,255,255,1)",
+        marginTop:"2px"
       },
       searchBoxOuter:{
-        marginTop:"-12px"
+        marginTop:"-1px",
+        height:"60px"
       }
     };
     const searchBox = (
       <TextField
-        hintText="Enter text"
         floatingLabelText="Search Product"
         floatingLabelStyle = {style.searchBoxFloatingText}
         inputStyle = {style.searchBoxStyle}
