@@ -23,6 +23,7 @@ export default class ProductsListToolBar extends React.Component {
       name:"",
       manufacturer:"Roche Products India Pvt Ltd",
       drug_form:"tablet",
+      packForm:"",
       imgUrl:"",
       is_banned: true,
       prescriptionRequired: false,
@@ -64,12 +65,17 @@ export default class ProductsListToolBar extends React.Component {
        "name":this.state.productSugList[0].name,
        "manufacturer":this.state.productSugList[0].manufacturer,
        "drug_form":this.state.productSugList[0].drug_form,
-       imgUrl:this.state.productSugList[0].imgUrl,
-       is_banned: this.state.productSugList[0].is_banned,
-       prescriptionRequired: this.state.productSugList[0].prescriptionRequired
+       "is_banned": this.state.productSugList[0].is_banned,
+       "prescriptionRequired": this.state.productSugList[0].prescriptionRequired,
+       "packForm":this.state.productSugList[0].packForm
      } );
 
-
+     if(this.state.productSugList[0].imgUrl)
+     {
+       this.setState({
+          "imgUrl":this.state.productSugList[0].imgUrl
+       });
+     }
    };
 
    handlePrductNameChange = (searchText) => {
@@ -121,9 +127,42 @@ export default class ProductsListToolBar extends React.Component {
   };
 
   handleSubmit = () => {
-    console.log(JSON.stringify(this.state));
+    var finalProductObj = {
+      "name":this.state.name,
+      "manufacturer":this.state.manufacturer,
+      "drug_form":this.state.drug_form,
+      "packForm":this.state.packForm,
+      "imgUrl":this.state.imgUrl,
+      "is_banned":this.state.is_banned,
+      "prescriptionRequired":this.state.prescriptionRequired,
+      "minStockValue":this.state.minStockValue
+    };
+
+    console.log(JSON.stringify(finalProductObj));
+    var hostURLPrefix = ""
+    if(window.location.hostname == 'localhost')
+    {
+      hostURLPrefix = "http://"+ window.location.hostname + ":3001"
+    }
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/store01/addProduct',
+      data: finalProductObj
+    })
+    .then(function (response) {
+        console.log("Product saved");
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+
+
     this.setState({open: false});
   };
+
 
   render() {
     const style = {
@@ -218,7 +257,7 @@ export default class ProductsListToolBar extends React.Component {
                       />
                     </div>
                     <div className="col-sm-6">
-                      <SelectField floatingLabelText="Manufacturer" name="manufacturer" value={this.state.manufacturer} fullWidth={true}>
+                      <SelectField floatingLabelText="Manufacturer" name="manufacturer" value={this.state.manufacturer} fullWidth={true} onChange={this.handleSelectChange.bind(null,"id","manufacturer")}>
                           {manufacturerMenuItem}
                           <MenuItem value={"Roche Products India Pvt Ltd"} primaryText="Roche Products India Pvt Ltd" />
                       </SelectField>
@@ -227,7 +266,7 @@ export default class ProductsListToolBar extends React.Component {
 
                   <div className="row">
                     <div className="col-sm-6">
-                        <SelectField floatingLabelText="Drug Form" name="drug_form" value={this.state.drug_form} fullWidth={true}>
+                        <SelectField floatingLabelText="Drug Form" name="drug_form" value={this.state.drug_form} fullWidth={true} onChange={this.handleSelectChange.bind(null,"id","drug_form")}>
                             <MenuItem value={"lancets"} primaryText="Lancets" />
                             <MenuItem value={"tablet"} primaryText="Tablet" />
                             <MenuItem value={"capsule"} primaryText="Capsule" />
@@ -248,7 +287,7 @@ export default class ProductsListToolBar extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-6">
-                      <Toggle label="Availability"  labelPosition="right" style={style.toggle} labelStyle={style.toggleLabelStyle} name="is_banned" toggled={this.state.is_banned} onToggle={this.handleChangeToggle}/>
+                      <Toggle label="Is Banned?"  labelPosition="right" style={style.toggle} labelStyle={style.toggleLabelStyle} name="is_banned" toggled={this.state.is_banned} onToggle={this.handleChangeToggle}/>
                     </div>
                     <div className="col-sm-6">
                       <Toggle label="Prescription Required" labelPosition="right" labelStyle={style.toggleLabelStyle} name="prescriptionRequired" style={style.toggle} toggled={this.state.prescriptionRequired} onToggle={this.handleChangeToggle}/>
@@ -256,12 +295,26 @@ export default class ProductsListToolBar extends React.Component {
               </div>
               <div className="row">
                     <div className="col-sm-6">
-                        <SelectField floatingLabelText="Filter" name="minStockValue" value={this.state.minStockValue} onChange={this.handleSelectChange.bind(null,"id","minStockValue")}>
+                        <SelectField floatingLabelText="Set minimum stock level" name="minStockValue" value={this.state.minStockValue} onChange={this.handleSelectChange.bind(null,"id","minStockValue")}>
                             {minimumStockList }
                         </SelectField>
                     </div>
                     <div className="col-sm-6">
-                      <TextField hintText="Search Tags" name="searchTags" floatingLabelText="Search TagsL" value={this.state.searchTags} fullWidth={true}/>
+                        <SelectField floatingLabelText="Pack Form" value={this.state.packForm} fullWidth={true} onChange={this.handleSelectChange.bind(null,"id","packForm")}>
+                            <MenuItem value={"packet"} primaryText="Packet" />
+                            <MenuItem value={"strip"} primaryText="Strip" />
+                            <MenuItem value={"bottle"} primaryText="Bottle" />
+                            <MenuItem value={"vial"} primaryText="Vial" />
+                            <MenuItem value={"tube"} primaryText="Tube" />
+                        </SelectField>
+                    </div>
+              </div>
+              <div className="row">
+                    <div className="col-sm-6">
+                        <TextField hintText="Search Tags" name="searchTags" floatingLabelText="Search Tags" value={this.state.searchTags} fullWidth={true}/>
+                    </div>
+                    <div className="col-sm-6">
+
                     </div>
               </div>
           </form>
