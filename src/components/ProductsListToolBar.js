@@ -26,6 +26,7 @@ export default class ProductsListToolBar extends React.Component {
       imgUrl:"",
       is_banned: true,
       prescriptionRequired: false,
+      minStockValue:0,
       productNameSug:[],
       productSugList:[],
     };
@@ -43,10 +44,18 @@ export default class ProductsListToolBar extends React.Component {
       let value = "";
       value = target.value;
       const name = target.name;
+      // console.log(event);
+      // console.log("inside handle change:"+value+"-:"+name);
       this.setState({
         [name]: value
       } );
    }
+
+   handleSelectChange = (id, name, evt, key, payload) => {
+     this.setState({
+       [name]: payload
+     } );
+  };
 
    handleListClick = () => {
      console.log("**** List item selected:"+JSON.stringify(this.state.productSugList[0].name));
@@ -172,6 +181,10 @@ export default class ProductsListToolBar extends React.Component {
                             (itemIn, index) =>
                             <MenuItem key={index} value={itemIn} primaryText={itemIn} />
                           );
+    const minimumStockList = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map(
+      (num,index) =>
+      <MenuItem key={index} value={num} primaryText={num} />
+    );
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
@@ -242,7 +255,12 @@ export default class ProductsListToolBar extends React.Component {
                     </div>
               </div>
               <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-sm-6">
+                        <SelectField floatingLabelText="Filter" name="minStockValue" value={this.state.minStockValue} onChange={this.handleSelectChange.bind(null,"id","minStockValue")}>
+                            {minimumStockList }
+                        </SelectField>
+                    </div>
+                    <div className="col-sm-6">
                       <TextField hintText="Search Tags" name="searchTags" floatingLabelText="Search TagsL" value={this.state.searchTags} fullWidth={true}/>
                     </div>
               </div>
