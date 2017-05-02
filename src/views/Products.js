@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/customInventoryTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -42,7 +43,7 @@ export default class Products extends React.Component {
       "packSizeLabel": "",
       "manufacturer": "",
       "pName": "",
-      "imgUrl": null,
+      "imgUrl": "http://www.crocin.com/content/dam/global/panadol/en_IN/418x418/crocin-advance-medicine.png",
       "discountPerc": 0
     },
     products:[{
@@ -81,6 +82,25 @@ export default class Products extends React.Component {
     }]
   };
     this.handleProductClick = this.handleProductClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+  handleSearch = () => {
+    console.log("Everything is in place");
+    var hostURLPrefix
+    if(window.location.hostname == 'localhost')
+    {
+      hostURLPrefix = "http://"+ window.location.hostname + ":3001"
+    }
+    axios.get(hostURLPrefix + '/store01/products')
+    .then(response => {
+      console.log(response);
+      this.setState({
+            products:response.data
+        });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
   handleProductClick(productId) {
     this.setState({productSelected: productId});
@@ -111,7 +131,7 @@ export default class Products extends React.Component {
     return (
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             <div style={style.prodOuter}>
-              <ProductsListToolBar></ProductsListToolBar>
+              <ProductsListToolBar onSearch={this.handleSearch}></ProductsListToolBar>
               <div style={style.prodList}>
                 <ProductList products = {this.state.products} onProductClick={this.handleProductClick}></ProductList>
               </div>

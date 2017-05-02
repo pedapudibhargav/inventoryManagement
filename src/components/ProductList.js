@@ -25,8 +25,8 @@ export default class ProductList extends React.Component {
             </TableRow>
         </TableHeader>
         <TableBody >
-          {productsIn.map((product) =>
-            <TableRow key={product.id} >
+          {productsIn.map((product, index) =>
+            <TableRow key={index} >
               <TableRowColumn>{product.name}</TableRowColumn>
               <TableRowColumn>2</TableRowColumn>
             </TableRow>

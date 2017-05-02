@@ -20,31 +20,41 @@ export default class ProductDetailView extends React.Component {
     var productIn = this.props.product;
     return (
       <Card>
-        <CardTitle title={productIn.name} subtitle={productIn.manufacturer} titleStyle={style.cardHeader}/>
-        <Avatar size={100} src="http://www.crocin.com/content/dam/global/panadol/en_IN/418x418/crocin-advance-medicine.png" />
+      "name":this.state.productSugList[0].name,
+      "manufacturer":this.state.productSugList[0].manufacturer,
+      "drug_form":this.state.productSugList[0].drug_form,
+      "is_banned": this.state.productSugList[0].is_banned,
+      "prescriptionRequired": this.state.productSugList[0].prescriptionRequired,
+      "packForm":this.state.productSugList[0].packForm
+        <CardTitle title={productIn.name} subtitle={productIn.manufacturer} titleStyle={style.cardHeader} className="text-uppercase"/>
+        <Avatar size={100} src={productIn.imgUrl} />
         <CardText>
         <Divider></Divider>
         <Table>
             <TableBody displayRowCheckbox={false}>
               <TableRow>
-                <TableRowColumn>Product Id</TableRowColumn>
-                <TableRowColumn>{productIn.pId}</TableRowColumn>
+                <TableRowColumn className="text-capitalize"> <h4>Name</h4> </TableRowColumn>
+                <TableRowColumn><p className="lead" >{productIn.name}</p></TableRowColumn>
               </TableRow>
               <TableRow>
-                <TableRowColumn>Unit Price</TableRowColumn>
-                <TableRowColumn>{productIn.uPrice}</TableRowColumn>
+                <TableRowColumn className="text-capitalize"> <h4>Manufacturer</h4> </TableRowColumn>
+                <TableRowColumn>{productIn.manufacturer}</TableRowColumn>
               </TableRow>
               <TableRow>
-                <TableRowColumn>Pack Price</TableRowColumn>
-                <TableRowColumn>{productIn.oPrice}</TableRowColumn>
+                <TableRowColumn className="text-capitalize"> <h4>Drug Forme</h4> </TableRowColumn>
+                <TableRowColumn >{productIn.drug_form}</TableRowColumn>
               </TableRow>
               <TableRow>
-                <TableRowColumn>Pack Size</TableRowColumn>
-                <TableRowColumn>{productIn.packSize}</TableRowColumn>
+                <TableRowColumn className="text-capitalize"> <h4>Is product banned?</h4> </TableRowColumn>
+                <TableRowColumn>{productIn.is_banned}</TableRowColumn>
               </TableRow>
               <TableRow>
-                <TableRowColumn>Drug Form</TableRowColumn>
-                <TableRowColumn>{productIn.drug_form}</TableRowColumn>
+                <TableRowColumn className="text-capitalize"> <h4>Prescription required</h4> </TableRowColumn>
+                <TableRowColumn>{productIn.prescriptionRequired}</TableRowColumn>
+              </TableRow>
+              <TableRow>
+                <TableRowColumn className="text-capitalize"> <h4>pack form</h4> </TableRowColumn>
+                <TableRowColumn>{productIn.packForm}</TableRowColumn>
               </TableRow>
             </TableBody>
           </Table>

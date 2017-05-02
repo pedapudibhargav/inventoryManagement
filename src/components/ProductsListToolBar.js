@@ -34,11 +34,18 @@ export default class ProductsListToolBar extends React.Component {
     this.handleChangeToggle = this.handleChangeToggle.bind(this);
     this.handlePrductNameChange = this.handlePrductNameChange.bind(this);
     this.handleListClick = this.handleListClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+  handleSearch = () =>{
+    this.props.onSearch();
   }
 
-  handleChangeToggle = (event) => {
-
-  }
+  handleChangeToggle = (id, name, evt, key, payload) => {
+    console.log("Toggle value:" + !this.state[name]);
+    this.setState({
+      [name]: !this.state[name]
+    } );
+ };
 
   handleChange = (event) => {
       const target = event.target;
@@ -146,7 +153,7 @@ export default class ProductsListToolBar extends React.Component {
     }
     axios({
       method: 'post',
-      url: 'http://localhost:3001/store01/addProduct',
+      url: hostURLPrefix + '/store01/addProduct',
       data: finalProductObj
     })
     .then(function (response) {
@@ -234,6 +241,11 @@ export default class ProductsListToolBar extends React.Component {
             icon={<ContentAdd />}
             onTouchTap={this.handleOpen}
           />
+          <RaisedButton
+            label="Search"
+            primary={true}
+            onTouchTap={this.handleSearch}
+          />
           <Dialog
           title="Create New Product"
           actions={actions}
@@ -282,15 +294,15 @@ export default class ProductsListToolBar extends React.Component {
                         </SelectField>
                     </div>
                     <div className="col-sm-6">
-                        <TextField hintText="Image URL" name="imgUrl" floatingLabelText="Image URL" value={this.state.imgUrl} fullWidth={true}/>
+                        <TextField hintText="Image URL" name="imgUrl" floatingLabelText="Image URL" value={this.state.imgUrl} fullWidth={true} onChange={this.handleChange} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-sm-6">
-                      <Toggle label="Is Banned?"  labelPosition="right" style={style.toggle} labelStyle={style.toggleLabelStyle} name="is_banned" toggled={this.state.is_banned} onToggle={this.handleChangeToggle}/>
+                      <Toggle label="Is Banned?"  labelPosition="right" style={style.toggle} labelStyle={style.toggleLabelStyle} name="" toggled={this.state.is_banned} onToggle={this.handleChangeToggle.bind(null,"id","is_banned")}/>
                     </div>
                     <div className="col-sm-6">
-                      <Toggle label="Prescription Required" labelPosition="right" labelStyle={style.toggleLabelStyle} name="prescriptionRequired" style={style.toggle} toggled={this.state.prescriptionRequired} onToggle={this.handleChangeToggle}/>
+                      <Toggle label="Prescription Required" labelPosition="right" labelStyle={style.toggleLabelStyle} style={style.toggle} toggled={this.state.prescriptionRequired} onToggle={this.handleChangeToggle.bind(null,"id","prescriptionRequired")}/>
                     </div>
               </div>
               <div className="row">
@@ -311,7 +323,7 @@ export default class ProductsListToolBar extends React.Component {
               </div>
               <div className="row">
                     <div className="col-sm-6">
-                        <TextField hintText="Search Tags" name="searchTags" floatingLabelText="Search Tags" value={this.state.searchTags} fullWidth={true}/>
+                        <TextField hintText="Search Tags" name="searchTags" floatingLabelText="Search Tags" value={this.state.searchTags} fullWidth={true} />
                     </div>
                     <div className="col-sm-6">
 
