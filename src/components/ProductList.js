@@ -22,13 +22,15 @@ export default class ProductList extends React.Component {
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>In stock </TableHeaderColumn>
+              <TableHeaderColumn>Min stock level </TableHeaderColumn>
             </TableRow>
         </TableHeader>
         <TableBody >
           {productsIn.map((product, index) =>
             <TableRow key={index} >
               <TableRowColumn>{product.name}</TableRowColumn>
-              <TableRowColumn>2</TableRowColumn>
+              <TableRowColumn>{product.inStockCount}</TableRowColumn>
+              <TableRowColumn>{product.minStockValue}</TableRowColumn>
             </TableRow>
           )}
 

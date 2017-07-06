@@ -125,6 +125,11 @@ export default class ProductsListToolBar extends React.Component {
        } );
     }
 
+ handleInvSearch = (e,searchText) =>{
+   console.log("START:Search inventory function:"+searchText);
+   this.props.onSearch(searchText);
+ }
+
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -165,7 +170,7 @@ export default class ProductsListToolBar extends React.Component {
       });
 
 
-
+    this.props.onSearch();
 
     this.setState({open: false});
   };
@@ -334,7 +339,7 @@ export default class ProductsListToolBar extends React.Component {
 
           <ToolbarSeparator style={style.toolBarSeperator}/>
           <ActionSearch/>
-          <TextField hintText="Search Inventory">
+          <TextField hintText="Search Inventory" onChange={this.handleInvSearch}>
           </TextField>
           <ToolbarSeparator style={style.toolBarSeperator}/>
           <SelectField floatingLabelText="Filter" style={style.selectBoxStyle} menuStyle={style.selectBoxLableStyle} value={this.state.value} onChange={this.handleChange} >

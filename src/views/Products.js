@@ -84,14 +84,20 @@ export default class Products extends React.Component {
     this.handleProductClick = this.handleProductClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
-  handleSearch = () => {
-    console.log("Everything is in place");
-    var hostURLPrefix
+  handleSearch = (searchText) => {
+    console.log("Everything is in place:"+searchText);
+    var hostURLPrefix = "";
     if(window.location.hostname == 'localhost')
     {
       hostURLPrefix = "http://"+ window.location.hostname + ":3001"
     }
-    axios.get(hostURLPrefix + '/store01/products')
+    var url = hostURLPrefix + '/store01/products';
+
+    if(searchText)
+    {
+      url = hostURLPrefix + '/store01/product/'+searchText;
+    }
+    axios.get(url)
     .then(response => {
       console.log(response);
       this.setState({

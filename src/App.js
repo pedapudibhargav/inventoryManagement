@@ -6,6 +6,7 @@ import {
   Switch,
   Link
 } from 'react-router-dom';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/customInventoryTheme';
@@ -28,6 +29,8 @@ import Paper from 'material-ui/Paper';
 import Dashboard from "./views/Dashboard";
 import Products from "./views/Products";
 import POS from "./views/POS";
+import Invoice from "./views/Invoice";
+import PurchaseOrder from "./views/PurchaseOrder";
 
 import './App.css';
 
@@ -109,8 +112,12 @@ class App extends Component {
                   <MenuItem primaryText="Sales" leftIcon={<NavigationSubdirectoryArrowRight style={style.icon} />}/>
                   <MenuItem primaryText="Bills" leftIcon={<NavigationSubdirectoryArrowRight  style={style.icon}/>}/>
                   <Divider />
-                  <MenuItem primaryText="Purchase Orders" leftIcon={<MapsLocalShipping  style={style.icon}/>} />
-                  <MenuItem primaryText="Invoice" leftIcon={<NotificationEventNote  style={style.icon}/>} />
+                  <Link to="/purchaseOrder">
+                    <MenuItem primaryText="Purchase Orders" leftIcon={<MapsLocalShipping  style={style.icon}/>} />
+                  </Link>
+                  <Link to="/invoice">
+                    <MenuItem primaryText="Invoice" leftIcon={<NotificationEventNote  style={style.icon}/>} />
+                  </Link>
                   <Divider />
                   <MenuItem primaryText="Customers" leftIcon={<SocialPeople style={style.icon} />} />
                   <MenuItem primaryText="Delaers" leftIcon={<SocialPeople  style={style.icon}/>} />
@@ -120,6 +127,8 @@ class App extends Component {
                        <Route exact path="/" component={Dashboard}/>
                        <Route path="/products" component={Products}/>
                        <Route path="/pos" component={POS}/>
+                       <Route path="/invoice" component={Invoice}/>
+                       <Route path="/purchaseOrder" component={PurchaseOrder}/>
               </div>
           </main>
         </Router>
